@@ -1,10 +1,10 @@
-// import 'package:flutter/material.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:http/http.dart';
 
 void main() {
-  return runApp(MyApp());
+  postData("lol.com");
+//  return runApp(MyApp());
 }
 
 Future postData(String short) async {
@@ -26,7 +26,7 @@ class MyApp extends StatelessWidget {
 }
 
 class inputWidget extends StatefulWidget {
-  const inputWidget({ Key? key }) : super(key: key);
+  const inputWidget({Key? key}) : super(key: key);
 
   @override
   _inputWidgetState createState() => _inputWidgetState();
@@ -36,17 +36,14 @@ class _inputWidgetState extends State<inputWidget> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding:EdgeInsets.all(10),
-      child: Column(
-        children: [
-          TextField(
-            decoration: InputDecoration(hintText: "Url you want to shorten")
-          ),
-          ElevatedButton(
-            onPressed: (){}, child: Text("Submit")
-          ),
-        ],
-      )   
-    );
+        padding: EdgeInsets.all(10),
+        child: Column(
+          children: [
+            TextField(
+                decoration:
+                    InputDecoration(hintText: "Url you want to shorten")),
+            ElevatedButton(onPressed: () {}, child: Text("Submit")),
+          ],
+        ));
   }
 }
