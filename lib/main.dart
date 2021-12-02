@@ -11,6 +11,7 @@ Future postData(String short) async {
   final url = "https://url-shortener.fusionsid.repl.co/api/";
   final response = await post(Uri.parse(url), body: {"url": short});
   print(response.body);
+  return response.body;
 }
 
 class MyApp extends StatelessWidget {
