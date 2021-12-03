@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
+import 'package:flutter_linkify/flutter_linkify.dart';
 
 void main() {
   // postData("lol.com");
@@ -39,13 +40,15 @@ Future postData(String short) async {
 class _inputWidgetState extends State<inputWidget> {
   final TextEditingController inputUrl = TextEditingController();
   String urlResponse = "";
+  String urs = "";
   @override
   Widget build(BuildContext context) {
     return Container(
         padding: EdgeInsets.all(10),
         child: Column(
           children: [
-            Text("${urlResponse}"),
+            Text("${urs}"),
+            Linkify(text: "${urlResponse}"),
             TextField(
                 controller: inputUrl,
                 decoration:
@@ -58,6 +61,8 @@ class _inputWidgetState extends State<inputWidget> {
 
                   setState(() {
                     urlResponse = urlresponse;
+                    urs = "Success!";
+                    inputUrl.text = "";
                   });
                 },
                 child: Text("Submit")),
