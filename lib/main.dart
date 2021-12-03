@@ -1,17 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:http/http.dart';
 
 void main() {
-  postData("lol.com");
-//  return runApp(MyApp());
-}
-
-Future postData(String short) async {
-  final url = "https://url-shortener.fusionsid.repl.co/api/";
-  final response = await post(Uri.parse(url), body: {"url": short});
-  print(response.body);
-  return response.body;
+  // postData("lol.com");
+  return runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -33,17 +25,42 @@ class inputWidget extends StatefulWidget {
   _inputWidgetState createState() => _inputWidgetState();
 }
 
+Future postData(String short) async {
+  const url = "https://url-shortener.fusionsid.repl.co/api/";
+  final response = await post(Uri.parse(url), body: {"url": short});
+  if (response.statusCode == 200) {
+    String responseurl = response.body;
+    return responseurl;
+  } else {
+    return null;
+  }
+}
+
 class _inputWidgetState extends State<inputWidget> {
+  final TextEditingController inputUrl = TextEditingController();
+  String urlResponse = "";
   @override
   Widget build(BuildContext context) {
     return Container(
         padding: EdgeInsets.all(10),
         child: Column(
           children: [
+            Text("${urlResponse}"),
             TextField(
+                controller: inputUrl,
                 decoration:
                     InputDecoration(hintText: "Url you want to shorten")),
-            ElevatedButton(onPressed: () {}, child: Text("Submit")),
+            ElevatedButton(
+                onPressed: () async {
+                  final inputurl = inputUrl.text;
+
+                  String urlresponse = await postData(inputurl);
+
+                  setState(() {
+                    urlResponse = urlresponse;
+                  });
+                },
+                child: Text("Submit")),
           ],
         ));
   }
