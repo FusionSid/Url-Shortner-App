@@ -33,7 +33,7 @@ Future postData(String short) async {
     String responseurl = response.body;
     return responseurl;
   } else {
-    return null;
+    return "fail";
   }
 }
 
@@ -60,8 +60,12 @@ class _inputWidgetState extends State<inputWidget> {
                   String urlresponse = await postData(inputurl);
 
                   setState(() {
-                    urlResponse = urlresponse;
-                    urs = "Success!";
+                    if (urlresponse == "fail") {
+                      urs = "Url generation failed!";
+                    } else {
+                      urlResponse = urlresponse;
+                      urs = "Url generated successfuly!";
+                    }
                     inputUrl.text = "";
                   });
                 },

@@ -1,0 +1,6 @@
+version: "Apple Swift version 5.5.1 (swiftlang-1300.0.31.4 clang-1300.0.29.6)"
+options: "6e5be82a8a4ff85f5d6187b0525d82bc2245430ca4170c68d825eaa201794194"
+build_start_time: [1638747310, 437778949]
+build_end_time: [1638747311, 53678035]
+inputs:
+  "/Users/siddheshzantye/Desktop/Coding/Dart/Flutter/url_shortener/ios/Runner/AppDelegate.swift": [1634330199, 0]
