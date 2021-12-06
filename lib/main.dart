@@ -28,11 +28,16 @@ class inputWidget extends StatefulWidget {
 
 Future postData(String short) async {
   const url = "https://url-shortener.fusionsid.repl.co/api/";
-  final response = await post(Uri.parse(url), body: {"url": short});
-  if (response.statusCode == 200) {
-    String responseurl = response.body;
-    return responseurl;
-  } else {
+  try {
+    final response = await post(Uri.parse(url), body: {"url": short});
+    if (response.statusCode == 200) {
+      String responseurl = response.body;
+      return responseurl;
+    } else {
+      return "fail";
+    }
+  } catch (e) {
+      print(e);
     return "fail";
   }
 }
@@ -44,33 +49,35 @@ class _inputWidgetState extends State<inputWidget> {
   @override
   Widget build(BuildContext context) {
     return Container(
-        padding: EdgeInsets.all(10),
-        child: Column(
-          children: [
-            Text("${urs}"),
-            Linkify(text: "${urlResponse}"),
-            TextField(
-                controller: inputUrl,
-                decoration:
-                    InputDecoration(hintText: "Url you want to shorten")),
-            ElevatedButton(
-                onPressed: () async {
-                  final inputurl = inputUrl.text;
+      padding: EdgeInsets.all(10),
+      child: Column(
+        children: [
+          Text("${urs}"),
+          Linkify(text: "${urlResponse}"),
+          TextField (
+            controller: inputUrl,
+            decoration: InputDecoration(hintText: "Enter url:")
+          ),
+          ElevatedButton(
+            child: const Text("Submit"),
+            onPressed: () async {
+              final inputurl = inputUrl.text;
 
-                  String urlresponse = await postData(inputurl);
+              String urlresponse = await postData(inputurl);
 
-                  setState(() {
-                    if (urlresponse == "fail") {
-                      urs = "Url generation failed!";
-                    } else {
-                      urlResponse = urlresponse;
-                      urs = "Url generated successfuly!";
-                    }
-                    inputUrl.text = "";
-                  });
-                },
-                child: Text("Submit")),
-          ],
-        ));
+              setState(() {
+                if (urlresponse == "fail") {
+                  urs = "URL Generation Failed";
+                } else {
+                  urlResponse = urlresponse;
+                  urs = "URL Generated Successfuly!";
+                }
+                inputUrl.text = "";
+              });
+            },
+          ),
+        ],
+      )
+    );
   }
 }
