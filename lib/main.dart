@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 import 'package:flutter_linkify/flutter_linkify.dart';
+import 'package:flutter/services.dart';
 
 void main() {
   // postData("lol.com");
@@ -71,6 +72,7 @@ class _inputWidgetState extends State<inputWidget> {
                 } else {
                   urlResponse = urlresponse;
                   urs = "URL Generated Successfuly!";
+                  Clipboard.setData(ClipboardData(text: urlresponse));
                 }
                 inputUrl.text = "";
               });
